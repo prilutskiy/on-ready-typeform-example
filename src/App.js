@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as TF from '@typeform/embed'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <button onClick={handleOpenClick}>Open typeform</button>
   );
+
+  function handleOpenClick() {
+    const url = 'https://survey.typeform.com/to/EDlUij6h'
+    TF
+      .makePopup(url, {
+        onReady: handleTypeformReady,
+        onSubmit: handleTypeformSubmit,
+      })
+      .open()
+  }
+
+  function handleTypeformReady(...args) {
+    console.log(args)
+    console.log('Typeform is ready')
+  }
+
+  function handleTypeformSubmit(...args) {
+    console.log(args)
+    console.log('Typeform is submitted')
+  }
 }
 
 export default App;
